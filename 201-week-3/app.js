@@ -48,12 +48,7 @@ var pics1 = document.getElementById('img1');
 var pics2 = document.getElementById('img2');
 var pics3 = document.getElementById('img3');
 var h3_el = document.getElementById('total');
-// var pics1 = label1.appendChild(h2_el1);
-// var pics2 = label2.appendChild(h2_el2);
-// var pics3 = label3.appendChild(h2_el3);
-// var img1 = h2_el1.appendChild(image1);
-// var img2 = h2_el2.appendChild(image2);
-// var img3 = h2_el3.appendChild(image3);
+
 
 
 
@@ -75,12 +70,8 @@ var Product = function(name, url){
 
 Product.prototype.render_as_img = function(div1, h2_el1, pics1){
     this.appeaeared++;
-    // debugger;
-    // var pics1 = document.getElementById('img1');
     pics1.src = this.url;
-    h2_el1.textContent = this.name;
-    
-    
+    h2_el1.textContent = this.name;   
 };
 
 new Product('bag', 'bag.jpg');
@@ -108,15 +99,16 @@ new Product('wine-glass', 'wine-glass.jpg');
 image_displayed1 = busmall_products[0];
 image_displayed2 = busmall_products[1];
 image_displayed3 = busmall_products[2];
-// name_displayed1 = busmall_names[0];
-// name_displayed2 = busmall_names[1];
-// name_displayed3 = busmall_names[2];
+
 
 var handle_bus_click = function(event){
     number_of_clicks --;
+    if(event.target.tagName !== 'IMG'){
+        return;
+    }
 
     if(event.target.tagName === 'IMG'){
-
+    
     if(event.target.id === 'img1'){
         image_displayed1.clicks++;
     
@@ -152,11 +144,6 @@ var handle_bus_click = function(event){
     busmall_products[random2].render_as_img(div2, h2_el2, pics2);
     busmall_products[random3].render_as_img(div3, h2_el3, pics3);
     
-    
-    //  busmall_names[random1].render_as_img(label1)
-    //  busmall_names[random2].render_as_img(label2)
-    //  busmall_names[random3].render_as_img(label3)
-
     image_displayed1 = busmall_products[random1];
     image_displayed2 = busmall_products[random2];
     image_displayed3 = busmall_products[random3];
