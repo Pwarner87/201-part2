@@ -34,6 +34,7 @@ var items_clicked = [];
 var busmall_products = [];
 var number_of_clicks = 25;
 var busmall_names = [];
+var ctx = document.getElementById('myChart').getContext('2d');
 
 var product_container = document.body;
 
@@ -122,7 +123,7 @@ var handle_bus_click = function(event){
 
     if(number_of_clicks <= 0){
         product_container.removeEventListener('click', handle_bus_click);
-    
+        
     for(var i =0; i < busmall_products.length; i++){
         if(busmall_products[i].appeaeared === 0){
             var percentage = 0;
@@ -133,7 +134,9 @@ var handle_bus_click = function(event){
         var li_el = document.createElement('li');
         li_el.textContent = `${busmall_products[i].name} -- clicks: ${busmall_products[i].clicks}, times shown: ${busmall_products[i].appeaeared}, percent of time selected: ${percentage}`;
         click_info.appendChild(li_el);
-    }   
+        }
+            document.getElementById('body').innerHTML = '';
+           BusMallChart();  
     }
     var random1 = Math.floor(Math.random() * busmall_products.length);
     var random2 = Math.floor(Math.random() * busmall_products.length);
@@ -155,7 +158,52 @@ var handle_bus_click = function(event){
 
 product_container.addEventListener('click', handle_bus_click);
 
+function BusMallChart(){
+    
+for(var i = 0; i < busmall_products.length; i++){
+    var productClicks = busmall_products[i].clicks;
+    items_clicked.push(productClicks);
+}
 
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: busmall_names,
+        datasets: [{
+            label: '# of Votes',
+            data: items_clicked,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+};
 
 
 
