@@ -74,7 +74,7 @@ Product.prototype.render_as_img = function(div1, h2_el1, pics1){
     pics1.src = this.url;
     h2_el1.textContent = this.name;   
 };
-
+if(localStorage.getItem(stringyProducts) === null){
 new Product('bag', 'bag.jpg');
 new Product('banana', 'banana.jpg');
 new Product('bathroom', 'bathroom.jpg');
@@ -95,7 +95,10 @@ new Product('unicorn', 'unicorn.jpg');
 new Product('usb', 'usb.gif');
 new Product('water-can', 'water-can.jpg');
 new Product('wine-glass', 'wine-glass.jpg');
-
+} else {
+    var stringyProducts = JSON.parse(stringyProducts);
+    localStorage.getItem(stringyProducts);
+}
 
 image_displayed1 = busmall_products[0];
 image_displayed2 = busmall_products[1];
@@ -136,7 +139,9 @@ var handle_bus_click = function(event){
         click_info.appendChild(li_el);
         }
             document.getElementById('body').innerHTML = '';
-           BusMallChart();  
+           BusMallChart();
+           var stringyProducts = JSON.stringify(busmall_products);
+           localStorage.setItem('Products', stringyProducts); 
     }
     var random1 = Math.floor(Math.random() * busmall_products.length);
     var random2 = Math.floor(Math.random() * busmall_products.length);
